@@ -3,15 +3,15 @@ require_relative 'plateau'
 class Rover
     attr_reader :heading
     attr_reader :pos
+    attr_reader :final
     def initialize(heading, x_pos, y_pos)
         @heading = heading
         @pos = {x: x_pos, y: y_pos}
     end
 
     def step(command)
-        c = command.split('')
+        c = command.downcase.split('')
         c.each do |command|
-        command.downcase
         turn_left if command.eql? 'l'
         turn_right if command.eql? 'r'
         move_fwd if command.eql? 'm'
@@ -53,7 +53,7 @@ class Rover
      def to_s
         x_crossed = @pos[:x] > @plateau[0].to_i || @pos[:x] < 0
 		y_crossed = @pos[:y] > @plateau[1].to_i || @pos[:y] < 0 
-		raise "Rover moved out of bounds" if (x_crossed || y_crossed)
-        return "#{@pos}, #{@heading}" 
+		raise "Rover moved out of bounds" if (x_crossed || y_crossed) 
+        return "#{@pos[:x]}, #{@pos[:y]}, #{@heading}"
      end       
 end    

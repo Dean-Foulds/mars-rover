@@ -41,8 +41,8 @@ describe 'Rover' do
       rover.step 'lm'
       expect(rover.heading).to eql :W
       expect { raise "Rover moved out of bounds" }.to raise_error("Rover moved out of bounds")
-      end
- 
+    end
+    
     it 'point to E when turn right from N' do
       rover = Rover.new(:N,0,0)
       rover.step 'r'
@@ -53,6 +53,18 @@ describe 'Rover' do
       rover = Rover.new(:N,0,0)
       rover.step 'm'
       expect(rover.pos).to include(x:0, y:1)  
-    end  
+    end
+
+ it 'thoughtworks spec test' do
+      rover1 = Rover.new(:N,1,2)
+      rover2 = Rover.new(:E,3,3)
+      plateau = Plateau.new "55"
+      rover1.step 'LMLMLMLMM'
+      rover2.step 'MMRMMRMRRM'
+      expect(rover1.heading).to eql :N
+      expect(rover1.pos).to include(x:1, y:3) 
+      expect(rover2.heading).to eql :E
+      expect(rover2.pos).to include(x:5, y:1) 
+      end
   end 
 end
